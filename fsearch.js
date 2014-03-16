@@ -1,3 +1,8 @@
+/*
+ * FSearch 0.1
+ * @author HsienTsung Wu
+ */
+
 (function ( $ ) {
 
 	$.fn.fsearch = function ( options ) {
