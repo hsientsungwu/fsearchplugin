@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>F-Search JS</title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+		<script src="../fsearch.js"></script>
+	</head>
+	<body>
+		<h3>F-Search Plugin</h3>
+		<p>
+			<input type="text" id="search-key" value="" placeholder="Enter Your Search Key Here" />
+
+		</p>
+		<p>
+			<ul class="search-list">
+				<li class="search-item" data-content="Steve">Steve</li>
+				<li class="search-item" data-content="Randy">Randy</li>
+				<li class="search-item" data-content="Jeremy">Jeremy</li>
+				<li class="search-item" data-content="Sandra">Sandra</li>
+			</ul>
+		</p>
+
+		<script>
+			$(document).ready(function() {
+				$('#search-key').fsearch({
+					'list' : '.search-list li'
+				});
+			});
+		</script>
+	</body>
+</html>
