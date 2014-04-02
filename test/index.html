@@ -21,8 +21,13 @@
 
 		<script>
 			$(document).ready(function() {
-				$('#search-key').fsearch({
-					'list' : '.search-list li'
+				var search = new Search({ 
+					input : '#search-key',
+					list  : '.search-list li',
+				});
+
+				$('#search-key').blur(function() {
+					search.reset();
 				});
 			});
 		</script>
