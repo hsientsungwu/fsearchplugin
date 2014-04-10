@@ -2,29 +2,28 @@
  * FSearch 0.1
  * @author HsienTsung Wu
  */
+$.fn.fsearch = function ( options ) {
+    var _this = this;
 
-function Search( options ) {
-	var _this = this;
+    var defaults = {
+        length          : 2,
+        list            : '.search-list',
+        target          : 'data-content',
+        reset           : false,
+        keyupCallback   : function() {},
+        resetCallback   : function() {},
+        searchCallback  : function(count) {}
+    };
 
-	var defaults = {
-		input 			: '#search-field',
-		length 			: 2,
-		list 			: '.search-list',
-		target 			: 'data-content',
-		keyupCallback 	: function() {},
-		resetCallback 	: function() {},
-		searchCallback 	: function(count) {}
-	};
+    var settings = $.extend(defaults, options);
 
-	_this.settings = $.extend(defaults, options);
+    function search(key) {
+        var count = 0;
 
-	this.search = function(key) {
-    	var count = 0;
-
-    	$(_this.settings.list).each(function() { 
-            if ($(this).attr(_this.settings.target).length === undefined) {
+        $(settings.list).each(function() { 
+            if ($(this).attr(settings.target).length === undefined) {
                 $(this).hide();
-            } else if ($(this).attr(_this.settings.target).search(new RegExp(key, "i")) < 0) {
+            } else if ($(this).attr(settings.target).search(new RegExp(key, "i")) < 0) {
                 $(this).hide();
             } else {
                 $(this).show();
@@ -32,33 +31,37 @@ function Search( options ) {
             }
         });
 
-        if (typeof _this.settings.searchCallback == 'function') _this.settings.searchCallback(count);
-	}
+        if (typeof settings.searchCallback == 'function') settings.searchCallback(count);
+    }
 
-	this.displayAll = function() {
-		$(_this.settings.list).each(function(e) {
-			$(this).show();
-		});
-	}
+    function displayAll() {
+        $(settings.list).each(function(e) {
+            $(this).show();
+        });
+    }
 
-	this.reset = function() {
-		if (typeof _this.settings.resetCallback == 'function') _this.settings.resetCallback();
+    function reset() {
+        if (typeof settings.resetCallback == 'function') settings.resetCallback();
 
-		_this.displayAll();
-		$(_this.settings.input).val('');
-	};
+        displayAll();
+        $(this).val('');
+    }
 
-	$(_this.settings.input).keyup(function(e) {
-		if (typeof _this.settings.keyupCallback == 'function') _this.settings.keyupCallback();
+    if (settings.reset) {
+        $(this).on('fsearch:reset', reset);
+    }
 
-		var key = $(this).val();
+    $(this).keyup(function(e) {
+        if (typeof settings.keyupCallback == 'function') settings.keyupCallback();
 
-		if (key.length >= _this.settings.length) {
-			_this.search(key);
-		} else {
-			_this.displayAll();
-		}
-	});
+        var key = $(this).val();
 
-	return this;
+        if (key.length >= settings.length) {
+            search(key);
+        } else {
+            reset();
+        }
+    });
+
+    return this;
 }
