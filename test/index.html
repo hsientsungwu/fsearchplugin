@@ -21,11 +21,10 @@
 
 		<script>
 			$(document).ready(function() {
-				var search = new Search({ 
-					input : '#search-key',
+				$('#search-key').fsearch({
 					list  : '.search-list li',
 				});
-
+				
 				$('#search-key').blur(function() {
 					search.reset();
 				});
