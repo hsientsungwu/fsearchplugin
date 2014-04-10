@@ -18,12 +18,17 @@ $.fn.fsearch = function ( options ) {
     var settings = $.extend(defaults, options);
 
     function search(key) {
-        var count = 0;
+        var count = 0,
+        	regexp = '',
+        	words = key.trim().split(/\s+/g);
 
+
+        regexp = '(?=.*\\b' + words.join("\\b)(?=.*\\b") + '\\b)+';
+        console.log(new RegExp(regexp, 'i'));
         $(settings.list).each(function() { 
             if ($(this).attr(settings.target).length === undefined) {
                 $(this).hide();
-            } else if ($(this).attr(settings.target).search(new RegExp(key, "i")) < 0) {
+            } else if ($(this).attr(settings.target).search(new RegExp(regexp, 'i')) < 0) {
                 $(this).hide();
             } else {
                 $(this).show();

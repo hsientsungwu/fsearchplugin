@@ -12,21 +12,23 @@
 		</p>
 		<p>
 			<ul class="search-list">
-				<li class="search-item" data-content="Steve">Steve</li>
-				<li class="search-item" data-content="Randy">Randy</li>
-				<li class="search-item" data-content="Jeremy">Jeremy</li>
-				<li class="search-item" data-content="Sandra">Sandra</li>
+				<li class="search-item" data-content="Steve is a boy">Steve is a boy</li>
+				<li class="search-item" data-content="Randy is a guy">Randy is a guy</li>
+				<li class="search-item" data-content="Jeremy is a guy">Jeremy is a guy</li>
+				<li class="search-item" data-content="Jackie is a girl">Jackie is a girl</li>
+				<li class="search-item" data-content="Sandra is a girl">Sandra is a girl</li>
 			</ul>
 		</p>
+		<div class="search-id" data-content="steve is a good boy">steve is a good boy</div>
 
 		<script>
 			$(document).ready(function() {
-				$('#search-key').fsearch({
+				var search = $('#search-key').fsearch({
 					list  : '.search-list li',
 				});
 				
 				$('#search-key').blur(function() {
-					search.reset();
+					$(this).trigger('fsearch:reset');
 				});
 			});
 		</script>
