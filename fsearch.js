@@ -23,8 +23,8 @@ $.fn.fsearch = function ( options ) {
         	words = key.trim().split(/\s+/g);
 
 
-        regexp = '(?=.*\\b' + words.join("\\b)(?=.*\\b") + '\\b)+';
-        console.log(new RegExp(regexp, 'i'));
+        regexp = '(?=.*' + words.join(")(?=.*") + ')+';
+
         $(settings.list).each(function() { 
             if ($(this).attr(settings.target).length === undefined) {
                 $(this).hide();
